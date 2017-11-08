@@ -9,6 +9,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+#include "mysql.h"
+
 #include "qtrpt.h"
 
 namespace Ui {
@@ -28,11 +30,14 @@ public:
     QStringList dataValue;
     int max_row_count;
 
-    void generateReport(QString template_path, QString config_path);
-    void readParam(QString config_path);
+    void generateReport(QString template_path, QString config_path, QString output_name, QString parameter);
+    void readParam(QString config_path, QString parameter);
 
-signals:
-    void close();
+    QSqlDatabase db;
+    mysql database;
+
+//signals:
+//    void close();
 
 public slots:
     void setValue(const int recNo, const QString paramName, QVariant &paramValue, const int reportPage);

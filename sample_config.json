@@ -18,55 +18,81 @@
     },
     {
       "name": "user",
-      "value": "ciburial"
+      "value": {
+          "query": "select 'ciburial' from dual"
+        }
     },
     {
       "name": "bak1_debit_terendah",
-      "value": "184,74"
+      "value": {
+          "query": "select '184,74' from dual"
+        }
     },
     {
       "name": "bak1_debit_tertinggi",
-      "value": "192,44"
+      "value": {
+          "query": "select '192,44' from dual"
+        }
     },
     {
       "name": "bak1_vol_awal",
-      "value": "321.241,00"
+      "value": {
+          "query": "select '321.241,00' from dual"
+        }
     },
     {
       "name": "bak1_vol_akhir",
-      "value": "322.226,00"
+      "value": {
+          "query": "select '322.226,00' from dual"
+        }
     },
     {
       "name": "bak1_total_vol",
-      "value": "1.047,00"
+      "value": {
+          "query": "select '1.047,00' from dual"
+        }
     },
     {
       "name": "bak1_rata2_vol",
-      "value": "523,50"
+      "value": {
+          "query": "select '523,50' from dual"
+        }
     },
     {
       "name": "bak2_debit_terendah",
-      "value": "171,91"
+      "value": {
+          "query": "select '171,91' from dual"
+        }
     },
     {
       "name": "bak2_debit_tertinggi",
-      "value": "180,88"
+      "value": {
+          "query": "select '180,88' from dual"
+        }
     },
     {
       "name": "bak2_vol_awal",
-      "value": "307.664,00"
+      "value": {
+          "query": "select '307.664,00' from dual"
+        }
     },
     {
       "name": "bak2_vol_akhir",
-      "value": "308.650,00"
+      "value": {
+          "query": "select '308.650,00' from dual"
+        }
     },
     {
       "name": "bak2_total_vol",
-      "value": "1.047,00"
+      "value": {
+          "query": "select '1.047,00' from dual"
+        }
     },
     {
       "name": "bak2_rata2_vol",
-      "value": "523,50"
+      "value": {
+          "query": "select '523,50' from dual"
+        }
     },
     {
       "name": "ket_debit_terendah",
@@ -98,7 +124,7 @@
     },
     {
       "name": "footer_date",
-      "value": "01-11-2017"
+      "value": "01 Nov 2017, 17:09"
     },
     {
       "name": "nn",
@@ -124,99 +150,149 @@
     },
     {
       "name": "report_bak1_level",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '10,87' from dual
+                    union
+                    select '10,62' from dual
+                    union
+                    select '10,71' from dual
+                    union
+                    select '10,64' from dual
+                    union
+                    select '10,78' from dual"
+        }
     },
     {
       "name": "report_bak1_debit",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '190,33' from dual
+                    union
+                    select '188,99' from dual
+                    union
+                    select '188,57' from dual
+                    union
+                    select '184,74' from dual
+                    union
+                    select '187,62' from dual"
+        }
     },
     {
       "name": "report_bak1_volume",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '321.241,00' from dual
+                    union
+                    select '321.307,00' from dual
+                    union
+                    select '321.363,00' from dual
+                    union
+                    select '321.425,00' from dual
+                    union
+                    select '321.486,00' from dual"
+        }
     },
     {
       "name": "report_bak1_prod",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '62,00' from dual
+                    union
+                    select '66,00' from dual
+                    union
+                    select '56,00' from dual
+                    union
+                    select '62,00' from dual
+                    union
+                    select '61,00' from dual"
+        }
     },
     {
       "name": "report_bak2_level",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '10,09' from dual
+                    union
+                    select '10,30' from dual
+                    union
+                    select '10,22' from dual
+                    union
+                    select '10,35' from dual
+                    union
+                    select '10,30' from dual"
+        }
     },
     {
       "name": "report_bak2_debit",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '171,91' from dual
+                    union
+                    select '173,30' from dual
+                    union
+                    select '175,22' from dual
+                    union
+                    select '180,88' from dual
+                    union
+                    select '174,83' from dual"
+        }
     },
     {
       "name": "report_bak2_volume",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '307.664,00' from dual
+                    union
+                    select '307.730,00' from dual
+                    union
+                    select '307.787,00' from dual
+                    union
+                    select '307.848,00' from dual
+                    union
+                    select '307.909,00' from dual"
+        }
     },
     {
       "name": "report_bak2_prod",
-      "value": [
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-",
-        "-", "-", "-", "-"
-      ]
+      "value": {
+          "query": "select '61,00' from dual
+                    union
+                    select '66,00' from dual
+                    union
+                    select '57,00' from dual
+                    union
+                    select '61,00' from dual
+                    union
+                    select '61,00' from dual"
+        }
     },
     {
       "name": "total_bak1_prod",
-      "value": "-"
+      "value": {
+        "query": "select sum(v) from
+                  (
+                    select '62,00' as v from dual
+                    union
+                    select '66,00' as v from dual
+                    union
+                    select '56,00' as v from dual
+                    union
+                    select '62,000' as v from dual
+                    union
+                    select '61,00' as v from dual
+                  ) as a"
+      }
     },
     {
       "name": "total_bak2_prod",
-      "value": "-"
+      "value": {
+        "query": "select sum(v) from
+                  (
+                    select '61,00' as v from dual
+                    union
+                    select '66,00' as v from dual
+                    union
+                    select '57,00' as v from dual
+                    union
+                    select '61,000' as v from dual
+                    union
+                    select '61,0000' as v from dual
+                  ) as a"
+      }
     }
   ]
 }

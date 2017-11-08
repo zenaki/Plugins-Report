@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 #greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 greaterThan(QT_MAJOR_VERSION, 4): {
@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): {
     DEFINES += HAVE_QT5
 }
 
-TARGET = Report_Gui
+TARGET = Report
 TEMPLATE = app
 
 contains(DEFINES,QTRPT_LIBRARY) {
@@ -25,8 +25,10 @@ include($$PWD/../../../QtRptProject/QtRPT/QtRPT.pri)
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    mysql.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    mysql.h
 
 FORMS    += mainwindow.ui
