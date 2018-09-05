@@ -2,9 +2,35 @@
 #include <QApplication>
 #include <QTimer>
 
+//#include <qapplication.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+
 #include "mysql.h"
 
 #define VERSION "0.1 beta"
+
+//void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+//{
+//    QByteArray localMsg = msg.toLocal8Bit();
+//    switch (type) {
+//    case QtDebugMsg:
+//        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+//        break;
+//    case QtInfoMsg:
+//        fprintf(stderr, "Info: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+//        break;
+//    case QtWarningMsg:
+//        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+//        break;
+//    case QtCriticalMsg:
+//        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+//        break;
+//    case QtFatalMsg:
+//        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+//        abort();
+//    }
+//}
 
 QStringList processArgs(int argc, char **argv)
 {
@@ -13,16 +39,19 @@ QStringList processArgs(int argc, char **argv)
     if (argc < 2) {
         printf(" -cnf  / --config CONFIG_JSON_FILE\t: Configuration(file.json) for Template\n\n"
                " -db   / --database DATABASE_NAME\t: Database Name for Connection Database\n\n"
-               " -f    / --file-name OUTPUT_NAME\t: PDF File Name (default report.pdf)\n\n"
+               " -dbp  / --database-port DATABASE_PORT\t: Port Database for Connection (default 3306)\n\n"
+               " -f    / --file-name OUTPUT_NAME\t: File Name (default report.pdf / report.xlsx)\n\n"
                " -host / --host-name HOST_NAME\t\t: Host Name for Connection Database\n\n"
                " -h    / --help\t\t\t\t: Print this help info\n\n"
-               " -par  / --parameter P1#P2#P3#P4#...\t\t: Parameter for Query on Configuration(file.json)\n\n"
+               " -mod  / --mode\t\t\t\t: Report Mode (pdf / excel)\n\n"
+               " -par  / --parameter P1#P2#P3#P4#...\t: Parameter for Query on Configuration(file.json)\n\n"
                " -pwd  / --password PASSWORD_DB\t\t: Password for Connection Database\n\n"
-               " -tmp  / --template TEMPLATE_XML_FILE\t: Template(file.xml) for Report\n\n"
+               " -tmp  / --template TEMPLATE_FILE\t: Template(file.xml/file.json) for Report\n\n"
                " -t    / --timeout TIMEOUT(ms)\t\t: Timeout for end process (default 5000ms)\n\n"
                " -usr  / --username USERNAME_DB\t\t: Username for Connection Database\n\n"
                " -v    / --version\t\t\t: Print version of plugins\n\n"
-               " ex    : -tmp report_template.xml -cnf config_template.json -host localhost -db database_name -usr root -pwd root -t 10000\n\n"
+               " ex1    : -tmp report_template.xml -cnf config_template.json -mod pdf -host localhost -db database_name -dbp 3360 -usr root -pwd root -t 10000\n\n"
+               " ex2    : -tmp report_template.json -cnf config_template.json -mod excel -host localhost -db database_name -dbp 3360 -usr root -pwd root -t 10000\n\n"
               );
         err = false;
     } else if (argc == 2) {
@@ -31,21 +60,30 @@ QStringList processArgs(int argc, char **argv)
             arg1 == QLatin1String("--help")) {
             printf(" -cnf  / --config CONFIG_JSON_FILE\t: Configuration(file.json) for Template\n\n"
                    " -db   / --database DATABASE_NAME\t: Database Name for Connection Database\n\n"
-                   " -f    / --file-name OUTPUT_NAME\t: PDF File Name (default report.pdf)\n\n"
+                   " -dbp  / --database-port DATABASE_PORT\t: Port Database for Connection (default 3306)\n\n"
+                   " -f    / --file-name OUTPUT_NAME\t: File Name (default report.pdf / report.xlsx)\n\n"
                    " -host / --host-name HOST_NAME\t\t: Host Name for Connection Database\n\n"
                    " -h    / --help\t\t\t\t: Print this help info\n\n"
-                   " -par  / --parameter P1#P2#P3#P4#...\t\t: Parameter for Query on Configuration(file.json)\n\n"
+                   " -mod  / --mode\t\t\t\t: Report Mode (pdf / excel)\n\n"
+                   " -par  / --parameter P1#P2#P3#P4#...\t: Parameter for Query on Configuration(file.json)\n\n"
                    " -pwd  / --password PASSWORD_DB\t\t: Password for Connection Database\n\n"
-                   " -tmp  / --template TEMPLATE_XML_FILE\t: Template(file.xml) for Report\n\n"
+                   " -tmp  / --template TEMPLATE_FILE\t: Template(file.xml/file.json) for Report\n\n"
                    " -t    / --timeout TIMEOUT(ms)\t\t: Timeout for end process (default 5000ms)\n\n"
                    " -usr  / --username USERNAME_DB\t\t: Username for Connection Database\n\n"
                    " -v    / --version\t\t\t: Print version of plugins\n\n"
-                   " ex    : -tmp report_template.xml -cnf config_template.json -host localhost -db database_name -usr root -pwd root -t 10000\n\n"
+                   " ex1    : -tmp report_template.xml -cnf config_template.json -mod pdf -host localhost -db database_name -dbp 3360 -usr root -pwd root -t 10000\n\n"
+                   " ex2    : -tmp report_template.json -cnf config_template.json -mod excel -host localhost -db database_name -dbp 3360 -usr root -pwd root -t 10000\n\n"
                   );
             err = false;
         } else if (arg1 == QLatin1String("-v") ||
                  arg1 == QLatin1String("--version")) {
-            printf(" Report Plugin Version: %s \nPT. DaunBiru Engiinering\nwww.daunbiru.com\n\n", VERSION);
+//            printf(" Report Plugin Version: %s \nPT. DaunBiru Engiinering\nwww.daunbiru.com\n\n", VERSION);
+            QString compilationTime = QString("%1 %2").arg(__DATE__).arg(__TIME__);
+            QString version = VERSION;
+            printf("Report Plugin Version:  %s\nPT. DaunBiru Engineering\nwww.daunbiru.com\n\n"
+                   "build on: %s (UTC+7)\n",
+                   version.toUtf8().data(),
+                   compilationTime.toUtf8().data());
             err = false;
         }
     } else  if (argc > 2) {
@@ -55,8 +93,10 @@ QStringList processArgs(int argc, char **argv)
                 par  = "",
                 host = "",
                 db   = "",
+                dbp  = "",
                 usr  = "",
-                pwd  = "";
+                pwd  = "",
+                mode = "";
         for (int i = 1; i < argc; i++) {
             QString arg1(argv[i]);
             if (arg1 == QLatin1String("-cnf") ||
@@ -67,6 +107,10 @@ QStringList processArgs(int argc, char **argv)
                        arg1 == QLatin1String("--database")) {
                 db = argv[i+1];
 //                qDebug() << "Database Name    : " << db;
+            } else if (arg1 == QLatin1String("-dbp") ||
+                       arg1 == QLatin1String("--database-port")) {
+                dbp = argv[i+1];
+//                qDebug() << "Database Port    : " << dbp;
             } else if (arg1 == QLatin1String("-f") ||
                        arg1 == QLatin1String("--file-name")) {
                 out = argv[i+1];
@@ -75,6 +119,10 @@ QStringList processArgs(int argc, char **argv)
                        arg1 == QLatin1String("--host-name")) {
                 host = argv[i+1];
 //                qDebug() << "Host Name        : " << host;
+            } else if (arg1 == QLatin1String("-mod") ||
+                       arg1 == QLatin1String("--mode")) {
+                mode = argv[i+1];
+//                qDebug() << "Mode             : " << mode;
             } else if (arg1 == QLatin1String("-par") ||
                        arg1 == QLatin1String("--parameter")) {
                 par = argv[i+1];
@@ -101,11 +149,17 @@ QStringList processArgs(int argc, char **argv)
             result.append(temp);
             result.append(conf);
             result.append(out);
-            result.append(par);
+            result.append(par.replace("__", " "));
             result.append(host);
             result.append(db);
             result.append(usr);
             result.append(pwd);
+            result.append(mode);
+            if (dbp.isEmpty()) {
+                result.append("3306");
+            } else {
+                result.append(dbp);
+            }
         } else {
             err = true;
         }
@@ -113,15 +167,6 @@ QStringList processArgs(int argc, char **argv)
     if (err) {
         printf("{\"ERR\": \"Wrong Plugin Commands\"}\n\n");
     }
-
-    result.append("../Report_Gui/sample_report.xml");
-    result.append("../Report_Gui/sample_config.json");
-    result.append("Testing.pdf");
-    result.append("");
-    result.append("localhost");
-    result.append("monita_alarm");
-    result.append("root");
-    result.append("root");
 
     return result;
 }
@@ -143,25 +188,50 @@ int timeOut(int argc, char **argv) {
 
 int main(int argc, char **argv)
 {
+//    qInstallMessageHandler(myMessageOutput);
     QApplication a(argc, argv);
     MainWindow w;
-//    a.connect(&w, SIGNAL(close()), &a, SLOT(quit()));
+//    a.connect(&w, SIGNAL(cls()), &a, SLOT(quit()));
+
     QStringList parameter = processArgs(argc, argv);
     if (parameter.length() > 0) {
         if (!parameter.at(4).isEmpty()) {
             mysql database;
-            w.db = database.connect_db("report_plugin", parameter.at(4), parameter.at(5), parameter.at(6), parameter.at(7));
+            w.db = database.connect_db("report_plugin", parameter.at(4), parameter.at(9).toInt(), parameter.at(5), parameter.at(6), parameter.at(7));
         }
-        w.generateReport(parameter.at(0), parameter.at(1), parameter.at(2), parameter.at(3));
+        QString msg;
+        if (parameter.at(8) == "pdf") {
+            msg = w.generateReport_pdf(parameter.at(0), parameter.at(1), parameter.at(2), parameter.at(3));
+        } else if (parameter.at(8) == "excel") {
+            msg = w.generateReport_excel(parameter.at(0), parameter.at(1), parameter.at(2), parameter.at(3));
+        } else {
+            msg = "{\"ERR\":\"Report Mode Undefined\"}";
+        }
+        if (msg.indexOf("ERR") > 0) {
+            qWarning() << msg;
+//            qCritical() << msg;
+//            qFatal(msg.toUtf8().data());
+//            qDebug() << "Ini Error";
+        } else {
+            printf(msg.toUtf8().data());
+//            qWarning() << msg;
+//            qDebug() << "Ini Nggak Error";
+        }
         a.quit();
-//        return a.exec();
+        return 0;
     } else {
         return 0;
     }
+
 //    mysql database;
-//    w.db = database.connect_db("report_plugin", "localhost", "monita_alarm", "root", "root");
-//    w.generateReport("../Report_Gui/sample_report.xml",
-//                     "../Report_Gui/sample_config.json",
-//                     "Testing.pdf", "");
-//    return a.exec();
+//    w.db = database.connect_db("report_plugin", "localhost", 3306, "marine_1", "test", "test");
+//    w.generateReport_excel("../Report_Gui/Test_Report/dsv_twinsister_504_template.json",
+//                     "../Report_Gui/Test_Report/dsv_twinsister_504_config.json",
+//                     "../Report_Gui/Test_Report/dsv_twinsister_504.xlsx",
+//                     "");
+////    w.generateReport("../Report_Gui/Test_Report/reportharian2.xml",
+////                     "../Report_Gui/Test_Report/sample_config.json",
+////                     "Testing_tlnaga.pdf", "");
+//    a.quit();
+//    return 0;
 }

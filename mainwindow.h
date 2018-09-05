@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+//#include <QMainWindow>
 #include <QTableWidget>
 #include <QDir>
 
@@ -13,11 +13,26 @@
 
 #include "qtrpt.h"
 
+#include "xlsxdocument.h"
+#include "xlsxcellformula.h"
+//#include "xlsxformat.h"
+//#include "xlsxcellrange.h"
+//#include "xlsxworksheet.h"
+
+//#include "3rdparty/QGumboParser/QGumboParser/qgumbodocument.h"
+//#include "3rdparty/QGumboParser/QGumboParser/qgumbonode.h"
+
+//#include <poppler/qt5/poppler-qt5.h>
+//#include <QRectF>
+//#include <QDebug>
+//#include <QFile>
+//#include <QTextStream>
+
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QObject
 {
     Q_OBJECT
 
@@ -26,12 +41,14 @@ public:
     ~MainWindow();
 
     QtRPT *report;
+    QXlsx::Document *xlsx;
     QStringList dataName;
     QStringList dataValue;
     int max_row_count;
 
-    void generateReport(QString template_path, QString config_path, QString output_name, QString parameter);
-    void readParam(QString config_path, QString parameter);
+    QString generateReport_pdf(QString template_path, QString config_path, QString output_name, QString parameter);
+    QString generateReport_excel(QString template_path, QString config_path, QString output_name, QString parameter);
+    QStringList readParam(QString config_path, QString parameter);
 
     QSqlDatabase db;
     mysql database;
@@ -44,7 +61,7 @@ public slots:
     void setValueImage(const int recNo, const QString paramName, QImage &paramValue, const int reportPage);
 
 private:
-    Ui::MainWindow *ui;
+//    Ui::MainWindow *ui;
 
     QStringList m_TableHeader;
 };

@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core sql
+QT       -= gui
 
 #greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 greaterThan(QT_MAJOR_VERSION, 4): {
@@ -20,7 +21,10 @@ contains(DEFINES,QTRPT_LIBRARY) {
     LIBS += -L$${DEST_DIRECTORY}/lib -lQtRPT
 }
 
+# PDF Generator
 include($$PWD/../../../QtRptProject/QtRPT/QtRPT.pri)
+# Excel Generator
+include($$PWD/../../../QtXlsxWriter/src/xlsx/qtxlsx.pri)
 #DESTDIR = $${DEST_DIRECTORY}
 
 
@@ -31,4 +35,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     mysql.h
 
-FORMS    += mainwindow.ui
+#FORMS    += mainwindow.ui
+#LIBS += -L/usr/local/lib -lpoppler-qt5
+#SUBDIRS += 3rdparty/QGumboParser/QGumboParser

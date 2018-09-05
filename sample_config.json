@@ -1,8 +1,22 @@
 {
+  "source": [
+    {
+      "type": "image",
+      "value": "/VisualMonita/sample_image1.json"
+    },{
+      "type": "image",
+      "value": "/VisualMonita/sample_image2.json"
+    },{
+      "type": "image",
+      "value": "/VisualMonita/sample_image3.json"
+    }
+  ],
   "report_param": [
     {
       "name": "unit",
-      "value": "Sumber Mata Air Ciburial"
+      "value": {
+          "query": "select :p3 from dual"
+        }
     },
     {
       "name": "alamat",
@@ -14,12 +28,14 @@
     },
     {
       "name": "tanggal",
-      "value": "01-11-2017"
+      "value": {
+        "query": "select :p2 from dual"
+        }
     },
     {
       "name": "user",
       "value": {
-          "query": "select 'ciburial' from dual"
+          "query": "call test_procedure()"
         }
     },
     {
@@ -120,7 +136,9 @@
     },
     {
       "name": "image",
-      "value": "../Report_Gui/sample_chart.jpeg"
+      "value": {
+        "query": "select :p1 from dual;"
+      }
     },
     {
       "name": "footer_date",

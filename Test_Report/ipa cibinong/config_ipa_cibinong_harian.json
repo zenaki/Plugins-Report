@@ -1,0 +1,55 @@
+{
+  "source": [
+    {
+      "type": "image",
+      "value": "/visualMonita/visualItems/163_805_jkln.json"
+    }
+  ],
+  "report_param": [
+    {
+      "name": "unit",
+      "value": "IPA Cibinong"
+    },
+    {
+      "name": "alamat",
+      "value": "Komplek Pemda Kab.Bogor Jln Bersih No.1, Cibinong Tengah,\nCibinong Bogor, Jawa Barat 16914"
+    },
+    {
+      "name": "obyek_monitoring",
+      "value": "Reservoir Metro"
+    },
+    {
+      "name": "tanggal",
+      "value": {
+        "query": "select from_unixtime(':p2', '%Y-%m-%d')"
+        }
+    },
+    {
+      "name": "user",
+      "value": " PDAM Cabang IPA Cibinong"
+    },
+    {
+      "name": "footer_date",
+      "value": {
+		"query": "select now() from dual"
+		}
+    },
+    {
+      "name": [
+         "nn",
+         "Jam",
+         "level_metro",
+         "volume_in_metro",
+         "level_2",
+         "volume_in_2",
+         "level_3",
+         "volume_in_3",
+         "level_4",
+         "volume_in_4"
+      ],
+      "value": {
+         "query": "call ipa_cibinong_get_data_volume_harian(:p1, :p2);"
+      }
+    }
+  ]
+}
